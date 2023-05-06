@@ -22,7 +22,7 @@ const storageEngine = multer.diskStorage({
     cb(null, "images/"); // Directory to store images
   },
   filename: function (req, file, cb) {
-    cb(null, req.headers.id + ".jpg");
+    cb(null, req.params.userId + ".jpg");
   },
 });
 
@@ -34,7 +34,7 @@ const upload = multer({
   },
 });
 
-router.post("/", upload.single("image"), (req, res) => {
+router.post("/:userId", upload.single("image"), (req, res) => {
   if (!req.file) {
     res.status(400).json({ message: req });
     return;
